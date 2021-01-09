@@ -37,9 +37,9 @@ class Ui_MainWindow(object):
         self.pushButton.setGeometry(QtCore.QRect(100, 50, 75, 23))
         self.pushButton.setObjectName("pushButton")
 
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
-        self.textEdit.setObjectName("textEdit")
+        self.QLineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.QLineEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
+        self.QLineEdit.setObjectName("textEdit")
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", ""))
         #self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "启动"))
 
 
 if __name__ == "__main__":
