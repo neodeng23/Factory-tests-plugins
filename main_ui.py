@@ -40,6 +40,7 @@ class Ui_MainWindow(object):
         self.QLineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.QLineEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
         self.QLineEdit.setObjectName("textEdit")
+        self.QLineEdit.setText("请点击启动")
         self.QLineEdit.setReadOnly(True)
 
         MainWindow.setCentralWidget(self.centralwidget)
