@@ -15,12 +15,13 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(self.on_pushButton_clicked)    # 按键事件
 
     def on_pushButton_clicked(self):
+        self.QLineEdit.append("开始监控测试")
         now_size = getdirsize(monitor_dir)
         while True:
             new_size = getdirsize(monitor_dir)
             if now_size != new_size:
                 SN, res = get_newlog_res()
-                self.QLineEdit.setText(SN + " : " + res)
+                self.QLineEdit.append(SN + " : " + res + "\n")
                 if res == "PASS":
                     self.label.setStyleSheet(m_green_SheetStyle)
                 else:
