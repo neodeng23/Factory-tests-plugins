@@ -69,27 +69,31 @@ def PassOrFail(SN):
             elif "FAIL" in result_list:
                 return "FAIL"
             else:
-                return "pass"
+                return "PASS"
 
-# 检测log文件夹是否存在
-if os.path.exists(log_dir):
-    print('OK, the Log file exists.')
-else:
-    print("Sorry, I cannot find the Log file, Creat New One")
-    os.makedirs(log_dir)
 
-now_size = getdirsize(monitor_dir)
+def run_check_log():
+    now_size = getdirsize(monitor_dir)
+    while True:
+        new_size = getdirsize(monitor_dir)
+        if now_size != new_size:
+            lists = os.listdir(monitor_dir)  # 获得文件夹内所有文件
+            for i in lists:
+                if len(i) == 17:
+                    log_list.append(i)
+            log_list.sort(key=lambda fn: os.path.getmtime(monitor_dir + '/' + fn))  # 排序
+            new_sn = log_list[-1]   # 最新的文件名
+            print(new_sn + ":" + PassOrFail(new_sn))
+        else:
+            pass
+        now_size = new_size
 
-while True:
-    new_size = getdirsize(monitor_dir)
-    if now_size != new_size:
-        lists = os.listdir(monitor_dir)  # 获得文件夹内所有文件
-        for i in lists:
-            if len(i) == 17:
-                log_list.append(i)
-        log_list.sort(key=lambda fn: os.path.getmtime(monitor_dir + '/' + fn))  # 排序
-        new_sn = log_list[-1]   # 最新的文件名
-        print(new_sn + ":" + PassOrFail(new_sn))
-    else:
-        pass
-    now_size = new_size
+
+def get_newlog_res():
+    lists = os.listdir(monitor_dir)  # 获得文件夹内所有文件
+    for i in lists:
+        if len(i) == 17:
+            log_list.append(i)
+    log_list.sort(key=lambda fn: os.path.getmtime(monitor_dir + '/' + fn))  # 排序
+    new_sn = log_list[-1]  # 最新的文件名
+    return new_sn, PassOrFail(new_sn)

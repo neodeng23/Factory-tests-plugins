@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow   # PyQt5中使用的基本控件都在PyQt5.QtWidgets模块中
-from main_ui import Ui_MainWindow  # 导入designer工具生成的login模块
+from main_ui import *  # 导入designer工具生成的login模块
+from check_log import *
 
 
 class MyMainForm(QMainWindow, Ui_MainWindow):
@@ -10,6 +11,24 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.status.showMessage("run_Test", 5000)
         self.setWindowTitle("MainWindow")
         self.setupUi(self)
+
+        self.pushButton.clicked.connect(self.on_pushButton_clicked)    # 按键事件
+
+    def on_pushButton_clicked(self):
+        now_size = getdirsize(monitor_dir)
+        while True:
+            new_size = getdirsize(monitor_dir)
+            if now_size != new_size:
+                SN, res = get_newlog_res()
+                self.QLineEdit.setText(SN + " : " + res)
+                if res == "PASS":
+                    self.label.setStyleSheet(m_green_SheetStyle)
+                else:
+                    self.label.setStyleSheet(m_red_SheetStyle)
+                time.sleep(5)
+            else:
+                pass
+            now_size = new_size
 
 
 if __name__ == "__main__":
