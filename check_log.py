@@ -65,12 +65,28 @@ def is_number(s):
     return False
 
 
-def PassOrFail(SN):
-    result_list = []
-
+def GetLogPath(SN):
     log_dir = "/vault/Atlas/Archive/" + SN
     log_time = get_new_file(log_dir)
-    trd_dir = log_dir + "/" + log_time + "/" + "AtlasLogs"
+    res = log_dir + "/" + log_time + "/" + "AtlasLogs"
+    return res
+
+
+def SNbyAttributes(SN):
+    A_Value = []
+    Attributes = GetLogPath(SN)
+    for filename in os.listdir(Attributes):
+        if filename == 'Attributes.csv':
+            csv_file = open(Attributes + "/" + filename)
+            reader = csv.reader(csv_file)
+            for row in reader:
+                A_Value.append(row[3])
+    return A_Value[1]
+
+
+def PassOrFail(SN):
+    result_list = []
+    trd_dir = GetLogPath(SN)
     for filename_c in os.listdir(trd_dir):
         if filename_c == 'Records.csv':
             csv_file = open(trd_dir + "/" + filename_c)
@@ -88,4 +104,5 @@ def PassOrFail(SN):
 
 def get_newlog_res():
     new_sn = get_new_file(monitor_dir)  # 最新的文件名
-    return new_sn, PassOrFail(new_sn)
+    sn_num = SNbyAttributes(new_sn)
+    return sn_num, PassOrFail(new_sn)
