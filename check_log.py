@@ -9,7 +9,6 @@ import csv
 from os.path import join, getsize
 
 monitor_dir = "/vault/Atlas/Archive"
-log_dir = "/Users/wts-sw/Desktop/Log/"
 day_time = datetime.datetime.now().strftime('%Y-%m-%d')
 screen_time = datetime.datetime.now().strftime('%Y%m%d')
 pattern = re.compile(screen_time)

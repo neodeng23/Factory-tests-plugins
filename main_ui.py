@@ -33,9 +33,9 @@ class Ui_MainWindow(object):
         # self.label_2.setGeometry(QtCore.QRect(470, 50, 54, 12))
         # self.label_2.setObjectName("label_2")
 
-        # self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        # self.pushButton.setGeometry(QtCore.QRect(100, 50, 75, 23))
-        # self.pushButton.setObjectName("pushButton")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(100, 50, 75, 23))
+        self.pushButton.setObjectName("pushButton")
 
         self.QTextEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.QTextEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
@@ -53,10 +53,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Factory Test"))
         self.label.setText(_translate("MainWindow", ""))
         # self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        # self.pushButton.setText(_translate("MainWindow", "启动"))
+        self.pushButton.setText(_translate("MainWindow", "启动"))
 
 
 if __name__ == "__main__":
