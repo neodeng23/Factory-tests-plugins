@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
 
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(290, 50, 54, 12))
+        self.label.setGeometry(QtCore.QRect(320, 50, 54, 12))
         self.label.setStyleSheet(m_grey_SheetStyle)
         self.label.setObjectName("label")
 
@@ -33,15 +33,15 @@ class Ui_MainWindow(object):
         # self.label_2.setGeometry(QtCore.QRect(470, 50, 54, 12))
         # self.label_2.setObjectName("label_2")
 
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(100, 50, 75, 23))
-        self.pushButton.setObjectName("pushButton")
+        # self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.pushButton.setGeometry(QtCore.QRect(100, 50, 75, 23))
+        # self.pushButton.setObjectName("pushButton")
 
-        self.QLineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.QLineEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
-        self.QLineEdit.setObjectName("textEdit")
-        self.QLineEdit.setText("请点击启动")
-        self.QLineEdit.setReadOnly(True)
+        self.QTextEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.QTextEdit.setGeometry(QtCore.QRect(100, 160, 441, 191))
+        self.QTextEdit.setObjectName("textEdit")
+        self.QTextEdit.append("开始监控测试" + "\n")
+        self.QTextEdit.setReadOnly(True)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -55,8 +55,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", ""))
-        #self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton.setText(_translate("MainWindow", "启动"))
+        # self.label_2.setText(_translate("MainWindow", "TextLabel"))
+        # self.pushButton.setText(_translate("MainWindow", "启动"))
 
 
 if __name__ == "__main__":
