@@ -25,15 +25,16 @@ class BackendThread(QThread):
             currTime = data.toString("yyyy-MM-dd hh:mm:ss")
             new_size = getdirsize(monitor_dir)
             if now_size != new_size:
+                time.sleep(1)
                 SN, res = get_newlog_res()
-                test_res = SN + " : " + res + "\n"
+                test_res = SN + " : " + res
                 if res == "PASS":
                     myWin.label.setStyleSheet(m_green_SheetStyle)
                     self.update_date.emit(str(currTime + " " + test_res))
                 else:
                     myWin.label.setStyleSheet(m_red_SheetStyle)
                     self.update_date.emit(str(currTime + " " + test_res))
-                time.sleep(8)
+                time.sleep(5)
             else:
                 myWin.label.setStyleSheet(m_yellow_SheetStyle)
                 time.sleep(1)

@@ -19,6 +19,22 @@ result_list = []
 log_file_list = []
 
 
+def get_new_file(file_path):
+    dir_list = os.listdir(file_path)
+    if not dir_list:
+        return
+    else:
+        # 注意，这里使用lambda表达式，将文件按照最后修改时间顺序升序排列
+        # os.path.getmtime() 函数是获取文件最后修改时间
+        # os.path.getctime() 函数是获取文件最后创建时间
+        for i in dir_list:
+            if i.startswith("."):
+                dir_list.remove(i)
+        dir_list = sorted(dir_list,  key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
+        # print(dir_list)
+        return dir_list[-1]
+
+
 def getdirsize(dir):
     size = 0
     for root, dirs, files in os.walk(dir):
@@ -31,6 +47,7 @@ def del_oldlog(dir):
     for i in range(0, len(list)):
         if bool(re.search(day_time, list[i])):
             os.remove(dir + list[i])
+
 
 def is_number(s):
     try:
@@ -49,13 +66,10 @@ def is_number(s):
 
 
 def PassOrFail(SN):
+    result_list = []
+
     log_dir = "/vault/Atlas/Archive/" + SN
-    log_dir_list = os.listdir(log_dir)
-    for i in log_dir_list:
-        if len(i) == 17:
-            log_file_list.append(i)
-    log_file_list.sort(key=lambda fn: os.path.getmtime(log_dir + '/' + fn))  # 排序
-    log_time = log_file_list[-1]
+    log_time = get_new_file(log_dir)
     trd_dir = log_dir + "/" + log_time + "/" + "AtlasLogs"
     for filename_c in os.listdir(trd_dir):
         if filename_c == 'Records.csv':
@@ -63,7 +77,7 @@ def PassOrFail(SN):
             reader = csv.reader(csv_file)
             for row in reader:
                 result_list.append(row[4])
-            #print(result_list)
+            print(result_list)
             if "ERROR" in result_list:
                 return "ERROR"
             elif "FAIL" in result_list:
@@ -72,28 +86,6 @@ def PassOrFail(SN):
                 return "PASS"
 
 
-def run_check_log():
-    now_size = getdirsize(monitor_dir)
-    while True:
-        new_size = getdirsize(monitor_dir)
-        if now_size != new_size:
-            lists = os.listdir(monitor_dir)  # 获得文件夹内所有文件
-            for i in lists:
-                if len(i) == 17:
-                    log_list.append(i)
-            log_list.sort(key=lambda fn: os.path.getmtime(monitor_dir + '/' + fn))  # 排序
-            new_sn = log_list[-1]   # 最新的文件名
-            print(new_sn + ":" + PassOrFail(new_sn))
-        else:
-            pass
-        now_size = new_size
-
-
 def get_newlog_res():
-    lists = os.listdir(monitor_dir)  # 获得文件夹内所有文件
-    for i in lists:
-        if len(i) == 17:
-            log_list.append(i)
-    log_list.sort(key=lambda fn: os.path.getmtime(monitor_dir + '/' + fn))  # 排序
-    new_sn = log_list[-1]  # 最新的文件名
+    new_sn = get_new_file(monitor_dir)  # 最新的文件名
     return new_sn, PassOrFail(new_sn)
